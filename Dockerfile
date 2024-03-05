@@ -7,6 +7,10 @@ RUN apt-get update && apt-get install -y \
     python3-opencv \
     && rm -rf /var/lib/apt/lists/*
 
+# Set the timezone to Berlin
+ENV TZ=Europe/Berlin
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 # Copy your repository contents into the image
 COPY . /ABT_live
 
@@ -17,6 +21,4 @@ WORKDIR /ABT_live
 # RUN pip3 install -r requirements.txt
 
 # Command to run when the container starts
-# Here it assumes you have a script named take_snapshot.py
-# Adjust the command according to your project's needs
 CMD ["bash"]
